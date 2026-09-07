@@ -303,12 +303,14 @@ if (process.env.NODE_ENV !== "test") {
   }, 60000);
 }
 
-app.listen(port, () => {
+const host = process.env.HOST || "0.0.0.0";
+
+app.listen({ port, hostname: host }, () => {
   console.log(
-    `🎾 Padelhive API (ElysiaJS) running at http://localhost:${port}/api`,
+    `🎾 Padelhive API (ElysiaJS) running at http://${host}:${port}/api`,
   );
   console.log(
-    `📖 Swagger documentation available at http://localhost:${port}/api/swagger`,
+    `📖 Swagger documentation available at http://${host}:${port}/api/swagger`,
   );
 });
 
