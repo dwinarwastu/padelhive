@@ -1,4 +1,4 @@
-import { Elysia } from "elysia";
+import { Elysia, t } from "elysia";
 import { ensureAuth } from "../../common/auth.util";
 import { authPlugin } from "../../plugins/auth";
 import { CreateReviewSchema, ReviewQuerySchema } from "./model";
@@ -16,6 +16,7 @@ export const reviewsModule = new Elysia({
     },
     {
       query: ReviewQuerySchema,
+      response: t.Any(),
       detail: { summary: "List reviews for a venue", tags: ["Reviews"] },
     },
   )
@@ -27,6 +28,7 @@ export const reviewsModule = new Elysia({
     },
     {
       body: CreateReviewSchema,
+      response: t.Any(),
       detail: {
         summary: "Submit review for completed booking",
         tags: ["Reviews"],

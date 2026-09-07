@@ -1,5 +1,5 @@
 import { UserRole } from "@prisma/client";
-import { Elysia } from "elysia";
+import { Elysia, t } from "elysia";
 import { ensureRoles } from "../../common/auth.util";
 import { authPlugin } from "../../plugins/auth";
 import {
@@ -30,6 +30,7 @@ export const venuesModule = new Elysia({
       );
     },
     {
+      response: t.Any(),
       detail: { summary: "List venues for management", tags: ["Venues"] },
     },
   )
@@ -44,6 +45,7 @@ export const venuesModule = new Elysia({
     },
     {
       query: AvailabilityQuerySchema,
+      response: t.Any(),
       detail: { summary: "Get venue availability calendar", tags: ["Venues"] },
     },
   )
@@ -54,6 +56,7 @@ export const venuesModule = new Elysia({
     },
     {
       query: VenueFilterSchema,
+      response: t.Any(),
       detail: {
         summary: "List approved venues with filters",
         tags: ["Venues"],
@@ -72,6 +75,7 @@ export const venuesModule = new Elysia({
     },
     {
       body: CreateVenueSchema,
+      response: t.Any(),
       detail: { summary: "Create new venue", tags: ["Venues"] },
     },
   )
@@ -81,6 +85,7 @@ export const venuesModule = new Elysia({
       return venuesService.findApprovedVenueById(params.id);
     },
     {
+      response: t.Any(),
       detail: { summary: "Get venue details by ID", tags: ["Venues"] },
     },
   )
@@ -102,6 +107,7 @@ export const venuesModule = new Elysia({
     },
     {
       body: UpdateVenueSchema,
+      response: t.Any(),
       detail: { summary: "Update venue details", tags: ["Venues"] },
     },
   );

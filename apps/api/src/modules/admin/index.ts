@@ -1,5 +1,5 @@
 import { type DisputeStatus, UserRole, type VenueStatus } from "@prisma/client";
-import { Elysia } from "elysia";
+import { Elysia, t } from "elysia";
 import { ensureRoles } from "../../common/auth.util";
 import { authPlugin } from "../../plugins/auth";
 import { ResolveDisputeSchema } from "../disputes/model";
@@ -24,6 +24,7 @@ export const adminModule = new Elysia({ prefix: "/admin", name: "adminModule" })
       return ensureRoles(user, UserRole.SUPER_ADMIN);
     },
     {
+      response: t.Any(),
       detail: { summary: "Get super admin profile", tags: ["Admin"] },
     },
   )
@@ -34,6 +35,7 @@ export const adminModule = new Elysia({ prefix: "/admin", name: "adminModule" })
       return adminService.getOverview();
     },
     {
+      response: t.Any(),
       detail: { summary: "Platform overview metrics", tags: ["Admin"] },
     },
   )
@@ -50,6 +52,7 @@ export const adminModule = new Elysia({ prefix: "/admin", name: "adminModule" })
     },
     {
       query: AdminBookingsQuerySchema,
+      response: t.Any(),
       detail: { summary: "List bookings for admin/owner", tags: ["Admin"] },
     },
   )
@@ -63,6 +66,7 @@ export const adminModule = new Elysia({ prefix: "/admin", name: "adminModule" })
     },
     {
       query: AdminVenuesQuerySchema,
+      response: t.Any(),
       detail: { summary: "List all venues for super admin", tags: ["Admin"] },
     },
   )
@@ -74,6 +78,7 @@ export const adminModule = new Elysia({ prefix: "/admin", name: "adminModule" })
     },
     {
       body: UpdateVenueStatusSchema,
+      response: t.Any(),
       detail: {
         summary: "Update venue status (approve/reject/suspend)",
         tags: ["Admin"],
@@ -88,6 +93,7 @@ export const adminModule = new Elysia({ prefix: "/admin", name: "adminModule" })
     },
     {
       query: CommissionQuerySchema,
+      response: t.Any(),
       detail: { summary: "Platform commission reports", tags: ["Admin"] },
     },
   )
@@ -98,6 +104,7 @@ export const adminModule = new Elysia({ prefix: "/admin", name: "adminModule" })
       return adminService.getMetrics();
     },
     {
+      response: t.Any(),
       detail: { summary: "Platform metrics breakdown", tags: ["Admin"] },
     },
   )
@@ -108,6 +115,7 @@ export const adminModule = new Elysia({ prefix: "/admin", name: "adminModule" })
       return vouchersService.findAllForAdmin();
     },
     {
+      response: t.Any(),
       detail: { summary: "List all vouchers (admin)", tags: ["Admin"] },
     },
   )
@@ -119,6 +127,7 @@ export const adminModule = new Elysia({ prefix: "/admin", name: "adminModule" })
     },
     {
       body: CreateVoucherSchema,
+      response: t.Any(),
       detail: { summary: "Create voucher (admin)", tags: ["Admin"] },
     },
   )
@@ -130,6 +139,7 @@ export const adminModule = new Elysia({ prefix: "/admin", name: "adminModule" })
     },
     {
       body: UpdateVoucherSchema,
+      response: t.Any(),
       detail: { summary: "Update voucher (admin)", tags: ["Admin"] },
     },
   )
@@ -140,6 +150,7 @@ export const adminModule = new Elysia({ prefix: "/admin", name: "adminModule" })
       return vouchersService.deleteVoucher(params.id);
     },
     {
+      response: t.Any(),
       detail: { summary: "Delete voucher (admin)", tags: ["Admin"] },
     },
   )
@@ -153,6 +164,7 @@ export const adminModule = new Elysia({ prefix: "/admin", name: "adminModule" })
     },
     {
       query: DisputeAdminQuerySchema,
+      response: t.Any(),
       detail: { summary: "List all disputes (admin)", tags: ["Admin"] },
     },
   )
@@ -163,6 +175,7 @@ export const adminModule = new Elysia({ prefix: "/admin", name: "adminModule" })
       return disputesService.assignDispute(params.id, authed.id);
     },
     {
+      response: t.Any(),
       detail: { summary: "Assign dispute to admin", tags: ["Admin"] },
     },
   )
@@ -178,6 +191,7 @@ export const adminModule = new Elysia({ prefix: "/admin", name: "adminModule" })
     },
     {
       body: ResolveDisputeSchema,
+      response: t.Any(),
       detail: { summary: "Resolve dispute (admin)", tags: ["Admin"] },
     },
   )
@@ -188,6 +202,7 @@ export const adminModule = new Elysia({ prefix: "/admin", name: "adminModule" })
       return disputesService.closeDispute(params.id, authed.id);
     },
     {
+      response: t.Any(),
       detail: { summary: "Close dispute (admin)", tags: ["Admin"] },
     },
   );

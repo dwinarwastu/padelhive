@@ -1,4 +1,4 @@
-import { Elysia } from "elysia";
+import { Elysia, t } from "elysia";
 import { ensureAuth } from "../../common/auth.util";
 import { authPlugin } from "../../plugins/auth";
 import { CreateDisputeSchema } from "./model";
@@ -17,6 +17,7 @@ export const disputesModule = new Elysia({
     },
     {
       body: CreateDisputeSchema,
+      response: t.Any(),
       detail: { summary: "Submit dispute on booking", tags: ["Disputes"] },
     },
   )
@@ -27,6 +28,7 @@ export const disputesModule = new Elysia({
       return disputesService.findMyDisputes(authed.id);
     },
     {
+      response: t.Any(),
       detail: { summary: "List current user's disputes", tags: ["Disputes"] },
     },
   );

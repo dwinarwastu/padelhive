@@ -47,6 +47,43 @@ export const AvailabilityQuerySchema = t.Object({
   courtId: t.Optional(t.String()),
 });
 
+export const VenueResponseSchema = t.Object({
+  id: t.String(),
+  ownerId: t.String(),
+  name: t.String(),
+  location: t.String(),
+  city: t.String(),
+  latitude: t.Nullable(t.Number()),
+  longitude: t.Nullable(t.Number()),
+  description: t.String(),
+  openTime: t.String(),
+  closeTime: t.String(),
+  imageUrl: t.Nullable(t.String()),
+  photos: t.Array(t.String()),
+  facilities: t.Array(t.String()),
+  weeklyHours: t.Nullable(t.Any()),
+  status: VenueStatusEnum,
+  priceFrom: t.Optional(t.Nullable(t.Number())),
+  rating: t.Optional(t.Nullable(t.Number())),
+  reviewCount: t.Optional(t.Number()),
+  courtCount: t.Optional(t.Number()),
+  createdAt: t.Any(),
+  updatedAt: t.Any(),
+});
+
+export const AvailabilityResponseSchema = t.Object({
+  venueId: t.String(),
+  date: t.String(),
+  timeSlots: t.Array(
+    t.Object({
+      time: t.String(),
+      available: t.Boolean(),
+      peak: t.Boolean(),
+    }),
+  ),
+  courts: t.Array(t.Any()),
+});
+
 export type CreateVenueInput = Static<typeof CreateVenueSchema>;
 export type UpdateVenueInput = Static<typeof UpdateVenueSchema>;
 export type VenueFilterInput = Static<typeof VenueFilterSchema>;

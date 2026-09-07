@@ -1,4 +1,4 @@
-import { Elysia } from "elysia";
+import { Elysia, t } from "elysia";
 import { ensureAuth } from "../../common/auth.util";
 import { authPlugin } from "../../plugins/auth";
 import { CreateInviteSchema, RsvpInviteSchema } from "./model";
@@ -14,6 +14,7 @@ export const invitesModule = new Elysia({ name: "invitesModule" })
     },
     {
       body: CreateInviteSchema,
+      response: t.Any(),
       detail: {
         summary: "Create player invite for booking",
         tags: ["Invites"],
@@ -27,6 +28,7 @@ export const invitesModule = new Elysia({ name: "invitesModule" })
       return invitesService.listInvitesForBooking(authed.id, params.id);
     },
     {
+      response: t.Any(),
       detail: { summary: "List invites for booking", tags: ["Invites"] },
     },
   )
@@ -36,6 +38,7 @@ export const invitesModule = new Elysia({ name: "invitesModule" })
       return invitesService.getInviteByToken(params.token);
     },
     {
+      response: t.Any(),
       detail: {
         summary: "Get public invite details by token",
         tags: ["Invites"],
@@ -49,6 +52,7 @@ export const invitesModule = new Elysia({ name: "invitesModule" })
     },
     {
       body: RsvpInviteSchema,
+      response: t.Any(),
       detail: { summary: "RSVP to public invite token", tags: ["Invites"] },
     },
   );
