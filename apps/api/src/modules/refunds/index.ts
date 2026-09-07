@@ -1,5 +1,5 @@
 import { type RefundStatus, UserRole } from "@prisma/client";
-import { Elysia } from "elysia";
+import { Elysia, t } from "elysia";
 import { ensureAuth, ensureRoles } from "../../common/auth.util";
 import { authPlugin } from "../../plugins/auth";
 import {
@@ -23,6 +23,7 @@ export const refundsModule = new Elysia({
     },
     {
       body: CreateRefundSchema,
+      response: t.Any(),
       detail: { summary: "Create a refund request", tags: ["Refunds"] },
     },
   )
@@ -33,6 +34,7 @@ export const refundsModule = new Elysia({
       return refundsService.findMyRefunds(authed.id);
     },
     {
+      response: t.Any(),
       detail: { summary: "List current user's refunds", tags: ["Refunds"] },
     },
   )
@@ -54,6 +56,7 @@ export const refundsModule = new Elysia({
     },
     {
       query: RefundQuerySchema,
+      response: t.Any(),
       detail: { summary: "List refunds for admin/owner", tags: ["Refunds"] },
     },
   )
@@ -65,6 +68,7 @@ export const refundsModule = new Elysia({
       return refundsService.findRefundById(params.id, authed.id, isSuperAdmin);
     },
     {
+      response: t.Any(),
       detail: { summary: "Get refund details by ID", tags: ["Refunds"] },
     },
   )
@@ -80,6 +84,7 @@ export const refundsModule = new Elysia({
       );
     },
     {
+      response: t.Any(),
       detail: {
         summary: "Get refund state transition history",
         tags: ["Refunds"],
@@ -105,6 +110,7 @@ export const refundsModule = new Elysia({
     },
     {
       body: AdminNotesSchema,
+      response: t.Any(),
       detail: { summary: "Approve a refund request", tags: ["Refunds"] },
     },
   )
@@ -127,6 +133,7 @@ export const refundsModule = new Elysia({
     },
     {
       body: RejectRefundSchema,
+      response: t.Any(),
       detail: { summary: "Reject a refund request", tags: ["Refunds"] },
     },
   )
@@ -143,6 +150,7 @@ export const refundsModule = new Elysia({
       return refundsService.processRefund(params.id, authed.id, isSuperAdmin);
     },
     {
+      response: t.Any(),
       detail: { summary: "Process an approved refund", tags: ["Refunds"] },
     },
   );

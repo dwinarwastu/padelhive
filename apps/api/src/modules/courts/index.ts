@@ -1,5 +1,5 @@
 import { UserRole } from "@prisma/client";
-import { Elysia } from "elysia";
+import { Elysia, t } from "elysia";
 import { ensureRoles } from "../../common/auth.util";
 import { authPlugin } from "../../plugins/auth";
 import { CreateCourtSchema, UpdateCourtSchema } from "./model";
@@ -26,6 +26,7 @@ export const courtsModule = new Elysia({
       );
     },
     {
+      response: t.Any(),
       detail: { summary: "List courts for management", tags: ["Courts"] },
     },
   )
@@ -47,6 +48,7 @@ export const courtsModule = new Elysia({
     },
     {
       body: CreateCourtSchema,
+      response: t.Any(),
       detail: { summary: "Create new court in venue", tags: ["Courts"] },
     },
   )
@@ -69,6 +71,7 @@ export const courtsModule = new Elysia({
     },
     {
       body: UpdateCourtSchema,
+      response: t.Any(),
       detail: { summary: "Update court details", tags: ["Courts"] },
     },
   )
@@ -78,6 +81,7 @@ export const courtsModule = new Elysia({
       return courtsService.findActiveCourtsForApprovedVenue(params.id);
     },
     {
+      response: t.Any(),
       detail: { summary: "List active courts for venue", tags: ["Courts"] },
     },
   );
