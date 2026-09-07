@@ -45,7 +45,7 @@ export const app = new Elysia()
     (store as any).startTime = performance.now();
 
     const url = new URL(request.url).pathname;
-    if (url === "/api/health" || url === "/api/swagger") return;
+    if (url === "/api/health" || url.startsWith("/api/swagger")) return;
 
     const ip =
       request.headers.get("x-forwarded-for")?.split(",")[0].trim() ||
@@ -133,6 +133,11 @@ export const app = new Elysia()
   .use(
     swagger({
       path: "/api/swagger",
+      scalarConfig: {
+        spec: {
+          url: "/api/swagger/json",
+        },
+      },
       documentation: {
         info: {
           title: "Padelhive API (ElysiaJS)",
@@ -304,13 +309,14 @@ if (process.env.NODE_ENV !== "test") {
 }
 
 const host = process.env.HOST || "0.0.0.0";
+const displayHost = host === "0.0.0.0" ? "localhost" : host;
 
 app.listen({ port, hostname: host }, () => {
   console.log(
-    `🎾 Padelhive API (ElysiaJS) running at http://${host}:${port}/api`,
+    `🎾 Padelhive API (ElysiaJS) running at http://${displayHost}:${port}/api`,
   );
   console.log(
-    `📖 Swagger documentation available at http://${host}:${port}/api/swagger`,
+    `📖 Swagger documentation available at http://${displayHost}:${port}/api/swagger`,
   );
 });
 
